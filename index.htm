@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Angular Application</title>
+		<title>TicTacToe</title>
 		<!-- Angular Javascript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 		<!-- Bootstrap CSS -->
@@ -13,6 +13,30 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<!-- Angular Routing -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+		<!-- custom style -->
+		<style type="text/css">
+			/* Custom styles to center and maintain board */
+			.board {
+				width: 200px;
+				height: auto;
+				margin: auto;
+				margin-top: 250px;
+				background-image: url("images/black.png");
+				color: white;
+			}
+			.centered {				
+				text-align: center;
+			}
+
+			table, th, td {
+				border: 3px dashed gray;
+			}
+
+			td {
+				height: 50px;
+				width: 50px;
+			}
+		</style>
 		<!-- GAME LOGIC -->
 		<script type="text/javascript">
 				/*
@@ -46,13 +70,14 @@
 						pTurn = 0
 					}
 				}
+
 				//mark the cell (table datum) clicked
 				function markCell(number){
 					//Only do if game is still going
 					if (gameOver == false) {
 						//Only do if the cell is empty
 						if (cells[number] == 0) {
-							console.log(number);
+							console.log("clicked on cell number " + number);
 							switch(pTurn) {
 								case 0:
 									document.getElementById(number).innerHTML = "X";
@@ -69,11 +94,7 @@
 							//switch player
 							alternate();
 							//use timeout before doing math so mark is placed before winner is decided
-							var ms = 250;
-							setTimeout(function() {
-								//check board
-								checkMath();
-							}, ms);
+							setTimeout(function() {/*check board*/ checkMath();}, 250);
 							console.log(cells);	
 							console.log("turns: " + turns);				
 						} else {
@@ -81,9 +102,9 @@
 						}
 					} else {
 						alert("The game is already over!")
-					}
-					
+					}					
 				}
+				
 				//math to see if victory
 				function checkMath(){
 					//add all possible
@@ -100,58 +121,46 @@
 
 					//If player 1 won
 					if (across1 == 3 || across2 == 3 || across3 == 3 || down1 == 3 || down2 == 3 || down3 == 3 || diag1 == 3 || diag2 == 3) {
-						alert("player 1 wins!")
+						//alert("player 1 wins!")
+						document.getElementById("wintext").innerHTML = "Player 1 wins!";
 						gameOver = true;
 					//If player 2 won
 					} else if (across1 == -3 || across2 == -3 || across3 == -3 || down1 == -3 || down2 == -3 || down3 == -3 || diag1 == -3 || diag2 == -3) {
-						alert("player 2 wins!")
+						//alert("player 2 wins!")
+						document.getElementById("wintext").innerHTML = "Player 2 wins!";
 						gameOver = true;
 					//If it's a draw
 					} else if (turns == 9) {
-						alert("It's a draw!")
+						//alert("It's a draw!")
+						document.getElementById("wintext").innerHTML = "It's a draw!";
 						gameOver = true;
 					}
 				}
 		</script>
-
-		<style type="text/css">
-			/* Custom styles to center and maintain board */
-			.board {
-				width: 200px;
-				height: auto;
-				margin: auto;
-				text-align: center;
-				margin-top: 250px;
-			}
-			table, th, td {
-				border: 3px solid black;
-			}
-			td {
-				height: 50px;
-				width: 50px;
-			}
-		</style>
 	</head>
 	<body>
-	<div class="panel panel-default board">
-		<table class="table table-striped">
-			<tr>
-				<td id="0" onclick="markCell(id)"></td>
-				<td id="1" onclick="markCell(id)"></td>
-				<td id="2" onclick="markCell(id)"></td>
-			</tr>
-			<tr>
-				<td id="3" onclick="markCell(id)"></td>
-				<td id="4" onclick="markCell(id)"></td>
-				<td id="5" onclick="markCell(id)"></td>
-			</tr>
-			<tr>
-				<td id="6" onclick="markCell(id)"></td>
-				<td id="7" onclick="markCell(id)"></td>
-				<td id="8" onclick="markCell(id)"></td>
-			</tr>
-		</table>
-	</div>
+		<div class="panel panel-default centered board">
+			<table class="table">
+				<tr>
+					<td id="0" onclick="markCell(id)"></td>
+					<td id="1" onclick="markCell(id)"></td>
+					<td id="2" onclick="markCell(id)"></td>
+				</tr>
+				<tr>
+					<td id="3" onclick="markCell(id)"></td>
+					<td id="4" onclick="markCell(id)"></td>
+					<td id="5" onclick="markCell(id)"></td>
+				</tr>
+				<tr>
+					<td id="6" onclick="markCell(id)"></td>
+					<td id="7" onclick="markCell(id)"></td>
+					<td id="8" onclick="markCell(id)"></td>
+				</tr>
+			</table>
+		</div><br>
+		<div id="wintext" class="centered">
+			
+		</div>
 		<script type="text/javascript">
 			//Create the Module
 
