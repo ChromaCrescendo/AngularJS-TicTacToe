@@ -31,12 +31,15 @@
 			function markCell(number){
 				if (cells[number] == 0) {
 					console.log(number);
-					if (pTurn == 0){
-						document.getElementById(number).innerHTML = "X";
-						cells[number] = 1;
-					} else {
-						document.getElementById(number).innerHTML = "O";				
-						cells[number] = -1;
+					switch(pTurn) {
+						case 0:
+							document.getElementById(number).innerHTML = "X";
+							cells[number] = 1;
+							break;
+						case 1:
+							document.getElementById(number).innerHTML = "O";			
+							cells[number] = -1;
+							break;						
 					}
 					//switch player
 					alternate(); checkMath();
@@ -47,7 +50,59 @@
 			}
 			//math to see if victory
 			function checkMath(){
+				var across1 = (cells[0] + cells[1] + cells[2]);
+				var across2 = (cells[3] + cells[4] + cells[5]);
+				var across3 = (cells[6] + cells[7] + cells[8]);
 
+				var down1 = (cells[0] + cells[3] + cells[6]);
+				var down2 = (cells[1] + cells[4] + cells[7]);
+				var down3 = (cells[2] + cells[5] + cells[8]);
+
+				var diag1 = (cells[0] + cells[4]+ cells[8]);
+				var diag2 = (cells[2] + cells[4]+ cells[6]);
+
+				if (across1 == 3) {
+					alert("player1 wins!")
+				} else if (across1 == -3) {
+					alert("player2 wins!")
+				}
+				if (across2 == 3) {
+					alert("player1 wins!")
+				} else if (across2 == -3) {
+					alert("player2 wins!")
+				}
+				if (across3 == 3) {
+					alert("player1 wins!")
+				} else if (across3 == -3) {
+					alert("player2 wins!")
+				}
+
+				if (down1 == 3) {
+					alert("player1 wins!")
+				} else if (down1 == -3) {
+					alert("player2 wins!")
+				}
+				if (down2 == 3) {
+					alert("player1 wins!")
+				} else if (down2 == -3) {
+					alert("player2 wins!")
+				}
+				if (down3 == 3) {
+					alert("player1 wins!")
+				} else if (down3 == -3) {
+					alert("player2 wins!")
+				}
+
+				if (diag1 == 3) {
+					alert("player1 wins!")
+				} else if (diag1 == -3) {
+					alert("player2 wins!")
+				}
+				if (diag2 == 3) {
+					alert("player1 wins!")
+				} else if (diag2 == -3) {
+					alert("player2 wins!")
+				}
 			}
 	</script>
 
