@@ -15,9 +15,27 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 	<!-- GAME LOGIC -->
 	<script type="text/javascript">
+			/*
+			@TODO
+			Get name from both users in text box
+			finalize on button press
+			DONE-ISH maintain cell values in array
+			DONE alternate turns
+			DONE use math to add across down and diagonal, all rows
+			DONE if x, add 1
+			DONE if o, subtract 1
+			DONE if any row totalled = -3 or 3 player one or two has won
+			DONE if a row totals 3 player 1 has won
+			DONE if a row totals -3 player 2 has won
+			create module
+			create controllers
+			*/
+
 			//store cells and player turn
+			//Initialize variables
 			var cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 			var pTurn = 0;
+			var turns = 0;
 
 			//alternate who's playing
 			function alternate(){
@@ -29,6 +47,7 @@
 			}
 			//mark the cell (table datum) clicked
 			function markCell(number){
+				//Only do if the cell is empty
 				if (cells[number] == 0) {
 					console.log(number);
 					switch(pTurn) {
@@ -43,7 +62,9 @@
 					}
 					//switch player & check board
 					alternate(); checkMath();
-					console.log(cells);					
+					turns += 1;
+					console.log(cells);	
+					console.log("turns " + turns);				
 				} else {
 					alert("A player has already played this cell!");
 				}
@@ -61,46 +82,9 @@
 				var diag1 = (cells[0] + cells[4]+ cells[8]);
 				var diag2 = (cells[2] + cells[4]+ cells[6]);
 
-				if (across1 == 3) {
+				if (across1 == 3 || across2 == 3 || across3 == 3 || down1 == 3 || down2 == 3 || down3 == 3 || diag1 == 3 || diag2 == 3) {
 					alert("player1 wins!")
-				} else if (across1 == -3) {
-					alert("player2 wins!")
-				}
-				if (across2 == 3) {
-					alert("player1 wins!")
-				} else if (across2 == -3) {
-					alert("player2 wins!")
-				}
-				if (across3 == 3) {
-					alert("player1 wins!")
-				} else if (across3 == -3) {
-					alert("player2 wins!")
-				}
-
-				if (down1 == 3) {
-					alert("player1 wins!")
-				} else if (down1 == -3) {
-					alert("player2 wins!")
-				}
-				if (down2 == 3) {
-					alert("player1 wins!")
-				} else if (down2 == -3) {
-					alert("player2 wins!")
-				}
-				if (down3 == 3) {
-					alert("player1 wins!")
-				} else if (down3 == -3) {
-					alert("player2 wins!")
-				}
-
-				if (diag1 == 3) {
-					alert("player1 wins!")
-				} else if (diag1 == -3) {
-					alert("player2 wins!")
-				}
-				if (diag2 == 3) {
-					alert("player1 wins!")
-				} else if (diag2 == -3) {
+				} else if (across1 == -3 || across2 == -3 || across3 == -3 || down1 == -3 || down2 == -3 || down3 == -3 || diag1 == -3 || diag2 == -3) {
 					alert("player2 wins!")
 				}
 			}
@@ -126,20 +110,6 @@
 	</style>
 </head>
 <body>
-	<!-- @TODO
-	Get name from both users in text box
-	finalize on button press
-	DONE-ISH maintain cell values in array
-	DONE alternate turns
-	DONE use math to add across down and diagonal, all rows
-	DONE if x, add 1
-	DONE if o, subtract 1
-	DONE if any row totalled = -3 or 3 player one or two has won
-	DONE if a row totals 3 player 1 has won
-	DONE if a row totals -3 player 2 has won
-	implement actual angular
-	create module
-	create controllers -->
 <div class="panel panel-default board">
 	<table class="table table-striped">
 		<tr>
