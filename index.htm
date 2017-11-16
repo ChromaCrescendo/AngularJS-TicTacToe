@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Angular Application</title>
+	<!-- Angular Javascript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Bootstrap javaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Angular Routing -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<!-- GAME LOGIC -->
+	<script type="text/javascript">
+			//store cells and player turn
+			var cells = ['0', '0', '0', '0', '0', '0', '0', '0'];
+			var pTurn = 0;
+
+			//alternate who's playing
+			function alternate(){
+				if (pTurn == 0) {
+					pTurn = 1
+				} else {
+					pTurn = 0
+				}
+			}
+			//mark the cell (table datum) clicked
+			function markCell(number){
+				console.log(number);
+				if (pTurn == 0){
+					document.getElementById(number).innerHTML = "X";
+				} else {
+					document.getElementById(number).innerHTML = "O";
+				}
+				//switch player
+				alternate();
+			}
+	</script>
+
+	<style type="text/css">
+		/* Custome styles to center and maintain board */
+		.board {
+			width: 500px;
+			height: auto;
+			margin: auto;
+			text-align: center;
+		}
+
+		table, th, td {
+			border: 1px solid black;
+		}
+		td {
+			height: 50px;
+			width: 50px;
+		}
+	</style>
+</head>
+<body>
+	<!-- @TODO
+	Get name from both users in text box
+	finalize on button press
+	DONE-ISH maintain cell values in array
+	DONE alternate turns
+	use math to add across down and diagonal, all rows
+	if x, add 1
+	if o, subtract 1
+	if any row totalled = -3 or 3 player one or two has won
+	if a row totals 3 player 1 has won
+	if a row totals -3 player 2 has won
+	create module
+	create controllers -->
+<div class="panel panel-default board">
+	<table class="table table-striped">
+		<tr>
+			<td id="0" onclick="markCell(0)"></td>
+			<td id="1" onclick="markCell(1)"></td>
+			<td id="2" onclick="markCell(2)"></td>
+		</tr>
+		<tr>
+			<td id="3" onclick="markCell(3)"></td>
+			<td id="4" onclick="markCell(4)"></td>
+			<td id="5" onclick="markCell(5)"></td>
+		</tr>
+		<tr>
+			<td id="6" onclick="markCell(6)"></td>
+			<td id="7" onclick="markCell(7)"></td>
+			<td id="8" onclick="markCell(8)"></td>
+		</tr>
+	</table>
+</div>
+	<script type="text/javascript">
+		//Create the Module
+
+		//Create the controllers
+	</script>	
+
+</body>
+</html>
