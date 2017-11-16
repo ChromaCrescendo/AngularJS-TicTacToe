@@ -16,7 +16,7 @@
 	<!-- GAME LOGIC -->
 	<script type="text/javascript">
 			//store cells and player turn
-			var cells = ['0', '0', '0', '0', '0', '0', '0', '0'];
+			var cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 			var pTurn = 0;
 
 			//alternate who's playing
@@ -32,25 +32,33 @@
 				console.log(number);
 				if (pTurn == 0){
 					document.getElementById(number).innerHTML = "X";
+					cells[number] = 1;
 				} else {
-					document.getElementById(number).innerHTML = "O";
+					document.getElementById(number).innerHTML = "O";					
+					cells[number] = -1;
 				}
 				//switch player
-				alternate();
+				alternate(); checkMath();
+				console.log(cells);
+			}
+			//math to see if victory
+			function checkMath(){
+
 			}
 	</script>
 
 	<style type="text/css">
 		/* Custome styles to center and maintain board */
 		.board {
-			width: 500px;
+			width: 200px;
 			height: auto;
 			margin: auto;
 			text-align: center;
+			margin-top: 250px;
 		}
 
 		table, th, td {
-			border: 1px solid black;
+			border: 3px solid black;
 		}
 		td {
 			height: 50px;
@@ -65,8 +73,8 @@
 	DONE-ISH maintain cell values in array
 	DONE alternate turns
 	use math to add across down and diagonal, all rows
-	if x, add 1
-	if o, subtract 1
+	DONE if x, add 1
+	DONE if o, subtract 1
 	if any row totalled = -3 or 3 player one or two has won
 	if a row totals 3 player 1 has won
 	if a row totals -3 player 2 has won
