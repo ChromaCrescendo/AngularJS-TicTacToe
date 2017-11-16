@@ -1,154 +1,162 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Angular Application</title>
-	<!-- Angular Javascript -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Bootstrap javaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- Angular Routing -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-	<!-- GAME LOGIC -->
-	<script type="text/javascript">
-			/*
-			@TODO
-			Get name from both users in text box
-			finalize on button press
-			DONE-ISH maintain cell values in array
-			DONE alternate turns
-			DONE use math to add across down and diagonal, all rows
-			DONE if x, add 1
-			DONE if o, subtract 1
-			DONE if any row totalled = -3 or 3 player one or two has won
-			DONE if a row totals 3 player 1 has won
-			DONE if a row totals -3 player 2 has won
-			create module
-			create controllers
-			*/
+	<head>
+		<meta charset="utf-8">
+		<title>Angular Application</title>
+		<!-- Angular Javascript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- Bootstrap javaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- Angular Routing -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+		<!-- GAME LOGIC -->
+		<script type="text/javascript">
+				/*
+				@TODO
+				Get name from both users in text box
+				finalize on button press
+				DONE maintain cell values in array
+				DONE alternate turns
+				DONE use math to add across down and diagonal, all rows
+				DONE if x, add 1
+				DONE if o, subtract 1
+				DONE if any row totalled = -3 or 3 player one or two has won
+				DONE if a row totals 3 player 1 has won
+				DONE if a row totals -3 player 2 has won
+				create module
+				create controllers
+				*/
 
-			//store cells and player turn
-			//Initialize variables
-			var cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-			var pTurn = 0;
-			var turns = 0;
-			var gameOver = false;
+				//store cells and player turn
+				//Initialize variables
+				var cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+				var pTurn = 0;
+				var turns = 0;
+				var gameOver = false;
 
-			//alternate who's playing
-			function alternate(){
-				if (pTurn == 0) {
-					pTurn = 1
-				} else {
-					pTurn = 0
-				}
-			}
-			//mark the cell (table datum) clicked
-			function markCell(number){
-				//Only do if game is still going
-				if (gameOver == false) {
-					//Only do if the cell is empty
-					if (cells[number] == 0) {
-						console.log(number);
-						switch(pTurn) {
-							case 0:
-								document.getElementById(number).innerHTML = "X";
-								cells[number] = 1;
-								break;
-							case 1:
-								document.getElementById(number).innerHTML = "O";			
-								cells[number] = -1;
-								break;						
-						}
-						//Add a turn before checking math so a draw works						
-						turns += 1;
-						//switch player & check board
-						alternate(); checkMath();
-						console.log(cells);	
-						console.log("turns " + turns);				
+				//alternate who's playing
+				function alternate(){
+					if (pTurn == 0) {
+						pTurn = 1
 					} else {
-						alert("A player has already played this cell!");
+						pTurn = 0
 					}
-				} else {
-					alert("The game is already over!")
 				}
-				
-			}
-			//math to see if victory
-			function checkMath(){
-				var across1 = (cells[0] + cells[1] + cells[2]);
-				var across2 = (cells[3] + cells[4] + cells[5]);
-				var across3 = (cells[6] + cells[7] + cells[8]);
+				//mark the cell (table datum) clicked
+				function markCell(number){
+					//Only do if game is still going
+					if (gameOver == false) {
+						//Only do if the cell is empty
+						if (cells[number] == 0) {
+							console.log(number);
+							switch(pTurn) {
+								case 0:
+									document.getElementById(number).innerHTML = "X";
+									cells[number] = 1;
+									break;
+								case 1:
+									document.getElementById(number).innerHTML = "O";			
+									cells[number] = -1;
+									break;						
+							}
 
-				var down1 = (cells[0] + cells[3] + cells[6]);
-				var down2 = (cells[1] + cells[4] + cells[7]);
-				var down3 = (cells[2] + cells[5] + cells[8]);
-
-				var diag1 = (cells[0] + cells[4] + cells[8]);
-				var diag2 = (cells[2] + cells[4] + cells[6]);
-				//If player 1 won
-				if (across1 == 3 || across2 == 3 || across3 == 3 || down1 == 3 || down2 == 3 || down3 == 3 || diag1 == 3 || diag2 == 3) {
-					alert("player 1 wins!")
-					gameOver = true;
-				//If player 2 won
-				} else if (across1 == -3 || across2 == -3 || across3 == -3 || down1 == -3 || down2 == -3 || down3 == -3 || diag1 == -3 || diag2 == -3) {
-					alert("player 2 wins!")
-					gameOver = true;
-				//If it's a draw
-				} else if (turns == 9) {
-					alert("It's a draw!")
-					gameOver = true;
+							//Add a turn before checking math so a draw works						
+							turns += 1;
+							//switch player
+							alternate();
+							//use timeout before doing math so mark is placed before winner is decided
+							var ms = 250;
+							setTimeout(function() {
+								//check board
+								checkMath();
+							}, ms);
+							console.log(cells);	
+							console.log("turns: " + turns);				
+						} else {
+							alert("A player has already played this cell!");
+						}
+					} else {
+						alert("The game is already over!")
+					}
+					
 				}
+				//math to see if victory
+				function checkMath(){
+					//add all possible
+					var across1 = (cells[0] + cells[1] + cells[2]);
+					var across2 = (cells[3] + cells[4] + cells[5]);
+					var across3 = (cells[6] + cells[7] + cells[8]);
+
+					var down1 = (cells[0] + cells[3] + cells[6]);
+					var down2 = (cells[1] + cells[4] + cells[7]);
+					var down3 = (cells[2] + cells[5] + cells[8]);
+
+					var diag1 = (cells[0] + cells[4] + cells[8]);
+					var diag2 = (cells[2] + cells[4] + cells[6]);
+
+					//If player 1 won
+					if (across1 == 3 || across2 == 3 || across3 == 3 || down1 == 3 || down2 == 3 || down3 == 3 || diag1 == 3 || diag2 == 3) {
+						alert("player 1 wins!")
+						gameOver = true;
+					//If player 2 won
+					} else if (across1 == -3 || across2 == -3 || across3 == -3 || down1 == -3 || down2 == -3 || down3 == -3 || diag1 == -3 || diag2 == -3) {
+						alert("player 2 wins!")
+						gameOver = true;
+					//If it's a draw
+					} else if (turns == 9) {
+						alert("It's a draw!")
+						gameOver = true;
+					}
+				}
+		</script>
+
+		<style type="text/css">
+			/* Custom styles to center and maintain board */
+			.board {
+				width: 200px;
+				height: auto;
+				margin: auto;
+				text-align: center;
+				margin-top: 250px;
 			}
-	</script>
+			table, th, td {
+				border: 3px solid black;
+			}
+			td {
+				height: 50px;
+				width: 50px;
+			}
+		</style>
+	</head>
+	<body>
+	<div class="panel panel-default board">
+		<table class="table table-striped">
+			<tr>
+				<td id="0" onclick="markCell(id)"></td>
+				<td id="1" onclick="markCell(id)"></td>
+				<td id="2" onclick="markCell(id)"></td>
+			</tr>
+			<tr>
+				<td id="3" onclick="markCell(id)"></td>
+				<td id="4" onclick="markCell(id)"></td>
+				<td id="5" onclick="markCell(id)"></td>
+			</tr>
+			<tr>
+				<td id="6" onclick="markCell(id)"></td>
+				<td id="7" onclick="markCell(id)"></td>
+				<td id="8" onclick="markCell(id)"></td>
+			</tr>
+		</table>
+	</div>
+		<script type="text/javascript">
+			//Create the Module
 
-	<style type="text/css">
-		/* Custome styles to center and maintain board */
-		.board {
-			width: 200px;
-			height: auto;
-			margin: auto;
-			text-align: center;
-			margin-top: 250px;
-		}
+			//Create the controllers
+		</script>	
 
-		table, th, td {
-			border: 3px solid black;
-		}
-		td {
-			height: 50px;
-			width: 50px;
-		}
-	</style>
-</head>
-<body>
-<div class="panel panel-default board">
-	<table class="table table-striped">
-		<tr>
-			<td id="0" onclick="markCell(0)"></td>
-			<td id="1" onclick="markCell(1)"></td>
-			<td id="2" onclick="markCell(2)"></td>
-		</tr>
-		<tr>
-			<td id="3" onclick="markCell(3)"></td>
-			<td id="4" onclick="markCell(4)"></td>
-			<td id="5" onclick="markCell(5)"></td>
-		</tr>
-		<tr>
-			<td id="6" onclick="markCell(6)"></td>
-			<td id="7" onclick="markCell(7)"></td>
-			<td id="8" onclick="markCell(8)"></td>
-		</tr>
-	</table>
-</div>
-	<script type="text/javascript">
-		//Create the Module
-
-		//Create the controllers
-	</script>	
-
-</body>
+	</body>
 </html>
