@@ -36,6 +36,7 @@
 			var cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 			var pTurn = 0;
 			var turns = 0;
+			var gameOver = false;
 
 			//alternate who's playing
 			function alternate(){
@@ -47,27 +48,34 @@
 			}
 			//mark the cell (table datum) clicked
 			function markCell(number){
-				//Only do if the cell is empty
-				if (cells[number] == 0) {
-					console.log(number);
-					switch(pTurn) {
-						case 0:
-							document.getElementById(number).innerHTML = "X";
-							cells[number] = 1;
-							break;
-						case 1:
-							document.getElementById(number).innerHTML = "O";			
-							cells[number] = -1;
-							break;						
+				//Only do if game is still going
+				if (gameOver == false) {
+					//Only do if the cell is empty
+					if (cells[number] == 0) {
+						console.log(number);
+						switch(pTurn) {
+							case 0:
+								document.getElementById(number).innerHTML = "X";
+								cells[number] = 1;
+								break;
+							case 1:
+								document.getElementById(number).innerHTML = "O";			
+								cells[number] = -1;
+								break;						
+						}
+						//Add a turn before checking math so a draw works						
+						turns += 1;
+						//switch player & check board
+						alternate(); checkMath();
+						console.log(cells);	
+						console.log("turns " + turns);				
+					} else {
+						alert("A player has already played this cell!");
 					}
-					//switch player & check board
-					alternate(); checkMath();
-					turns += 1;
-					console.log(cells);	
-					console.log("turns " + turns);				
 				} else {
-					alert("A player has already played this cell!");
+					alert("The game is already over!")
 				}
+				
 			}
 			//math to see if victory
 			function checkMath(){
@@ -79,13 +87,20 @@
 				var down2 = (cells[1] + cells[4] + cells[7]);
 				var down3 = (cells[2] + cells[5] + cells[8]);
 
-				var diag1 = (cells[0] + cells[4]+ cells[8]);
-				var diag2 = (cells[2] + cells[4]+ cells[6]);
-
+				var diag1 = (cells[0] + cells[4] + cells[8]);
+				var diag2 = (cells[2] + cells[4] + cells[6]);
+				//If player 1 won
 				if (across1 == 3 || across2 == 3 || across3 == 3 || down1 == 3 || down2 == 3 || down3 == 3 || diag1 == 3 || diag2 == 3) {
-					alert("player1 wins!")
+					alert("player 1 wins!")
+					gameOver = true;
+				//If player 2 won
 				} else if (across1 == -3 || across2 == -3 || across3 == -3 || down1 == -3 || down2 == -3 || down3 == -3 || diag1 == -3 || diag2 == -3) {
-					alert("player2 wins!")
+					alert("player 2 wins!")
+					gameOver = true;
+				//If it's a draw
+				} else if (turns == 9) {
+					alert("It's a draw!")
+					gameOver = true;
 				}
 			}
 	</script>
