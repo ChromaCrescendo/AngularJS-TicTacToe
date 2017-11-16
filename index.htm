@@ -29,7 +29,8 @@
 			}
 			//mark the cell (table datum) clicked
 			function markCell(number){
-				//console.log(number);			
+				if (cells[number] == 0) {
+					console.log(number);
 					if (pTurn == 0){
 						document.getElementById(number).innerHTML = "X";
 						cells[number] = 1;
@@ -39,16 +40,14 @@
 					}
 					//switch player
 					alternate(); checkMath();
-					console.log(cells);
-			}
-			//check to see if clicking an empty space
-			function checkContents(){
-
+					console.log(cells);					
+				} else {
+					alert("A player has already played this cell!");
+				}
 			}
 			//math to see if victory
 			function checkMath(){
-				/*
-				if rows one through three across
+
 			}
 	</script>
 
