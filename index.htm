@@ -78,13 +78,15 @@
 						//Only do if the cell is empty
 						if (cells[number] == 0) {
 							console.log("clicked on cell number " + number);
+							//Switch block for whose turn it is
 							switch(pTurn) {
-								case 0:
-									document.getElementById(number).innerHTML = "X";
+								//Player one gets a 1 in the array, Player two gets a -1
+								case 0://player1
+									$("#" + number).html("X");
 									cells[number] = 1;
 									break;
-								case 1:
-									document.getElementById(number).innerHTML = "O";			
+								case 1://player2
+									$("#" + number).html("O");			
 									cells[number] = -1;
 									break;						
 							}
@@ -122,17 +124,17 @@
 					//If player 1 won
 					if (across1 == 3 || across2 == 3 || across3 == 3 || down1 == 3 || down2 == 3 || down3 == 3 || diag1 == 3 || diag2 == 3) {
 						//alert("player 1 wins!")
-						document.getElementById("wintext").innerHTML = "Player 1 wins!";
+						$("#wintext").html("Player 1 wins!");
 						gameOver = true;
 					//If player 2 won
 					} else if (across1 == -3 || across2 == -3 || across3 == -3 || down1 == -3 || down2 == -3 || down3 == -3 || diag1 == -3 || diag2 == -3) {
 						//alert("player 2 wins!")
-						document.getElementById("wintext").innerHTML = "Player 2 wins!";
+						$("#wintext").html("Player 2 wins!");
 						gameOver = true;
 					//If it's a draw
 					} else if (turns == 9) {
 						//alert("It's a draw!")
-						document.getElementById("wintext").innerHTML = "It's a draw!";
+						$("#wintext").html("It's a draw!");
 						gameOver = true;
 					}
 				}
@@ -158,9 +160,7 @@
 				</tr>
 			</table>
 		</div><br>
-		<div id="wintext" class="centered">
-			
-		</div>
+		<div id="wintext" class="centered"></div>
 		<script type="text/javascript">
 			//Create the Module
 
