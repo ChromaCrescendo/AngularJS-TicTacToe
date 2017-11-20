@@ -1,0 +1,22 @@
+/* Custom styles to center and maintain board */
+.board {
+	width: 200px;
+	height: auto;
+	margin: auto;
+	margin-top: 250px;
+	background-image: url("../images/black.png");
+	color: white;
+}
+.centered {				
+	text-align: center;
+}
+
+.board > table, th, td {
+
+	border: 3px dashed gray;
+}
+
+td {
+	height: 50px;
+	width: 50px;
+}

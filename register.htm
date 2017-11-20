@@ -1,0 +1,12 @@
+<form class="form">
+	<div ng-show="errormsg" class="alert alert-danger">
+		<strong>Error: </strong>{{errormsg}}
+	</div>
+	<div class="centered">
+		Player 1:
+		<input type="text" ng-model="namePlayer1" placeholder="Enter name here"><br>
+		Player 2:
+		<input type="text" ng-model="namePlayer2" placeholder="Enter name here">
+	</div>
+	<button class="centered" ng-click="reg()" style="display: block; margin: auto;">{{namePlayer1}} and {{namePlayer2}}</button>
+</form>

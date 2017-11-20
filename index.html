@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>TicTacToe</title>
+		<!-- Angular Javascript -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!-- Bootstrap javaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- Angular Routing -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+		<!-- Custom CSS Style -->
+		<link rel="stylesheet" type="text/css" href="css/custom.css">
+		<!-- GAME LOGIC -->
+		<script type="text/javascript" src="js/gamelogic.js"></script>
+	</head>
+	<body ng-app="myApp">
+		<h2 style="text-align: center;">Tic Tac Toe</h2>
+		<div ng-view></div>
+	<script type="text/javascript">
+		var app = angular.module("myApp", ["ngRoute"]);
+		app.config(function($routeProvider) {
+		    $routeProvider
+		    .when("/",{
+		    	templateUrl : "register.htm",
+		    	controller : "regCtrl"
+		    })
+		    .when("/gameScreen", {
+		        templateUrl : "gameScreen.htm",
+		        controller : "gameControl"
+		    });
+		});
+		app.controller("regCtrl", function ($scope, $location){
+			$scope.reg = function(){	
+				if ($scope.namePlayer1 == undefined || $scope.namePlayer2 == undefined){
+					$scope.errormsg = "Please enter the name."
+					return;
+				}else{
+					localStorage.setItem("p1", $scope.namePlayer1)
+					localStorage.setItem("p2", $scope.namePlayer2)
+					$location.path("gameScreen")
+				}
+			}
+		});//fix typo
+		app.controller("gameControl", function ($scope, $location) {
+			$scope.namePlayer1 = localStorage.getItem("p1");
+			$scope.namePlayer2 = localStorage.getItem("p2");
+			$scope._exit = function(){
+				newGame();
+				localStorage.setItem("p1", null)
+				localStorage.setItem("p2", null)
+				$location.path("/")
+			}
+		});
+
+	</script>		
+</html>
